@@ -60,6 +60,7 @@ let books1 = [
     inventory:0
 }
 ]
+/* 
 function printReport(foo){
     console.log(foo(books1));
 }
@@ -84,3 +85,92 @@ function replenish(array){
     return `Place order for : ${replenishList. join(', ')}`;
 }
 printReport(replenish);
+
+function loopAndUpdate(array, updatedFoo){
+    const updatedArray=[];
+    for (let item of array){
+      updatedArray.push(updatedFoo(item));  
+    };
+    return updatedArray;
+}
+function title(item){
+    return item.title;
+}
+function prices(item){
+    return item.price;
+}
+function inventory(item){
+    return item.inventory;
+}
+function halfOff(item){
+    let itemCopy = Object.assign({},item);
+    itemCopy.price =Math.floor(itemCopy.price/2)
+    return itemCopy;
+}
+
+//returns an array of titles
+ const titles=books1.map(item=> item.title)
+
+ //returns array of prices
+ const prices = books1.map(pricesFoo)
+
+ //returns an array of inventory
+ const inventory =books1.map(item=>item.inventory)
+ //returns array books 50% off
+ const halfOff =books1.map(item=>{
+    let itemCopy = Object.assign({},item);
+    itemCopy.price=Math.floor(itemCopy.price/2);
+    return itemCopy;
+
+
+ })
+ //loop through inventory and finds the fist object returns true based on callback
+  function loopThroughAndFind(inventory, finder){
+    let result =null;
+    for(let item of inventory){
+        if(finder(item)===true){
+            result=item
+            break;
+        }
+    }
+    return result;
+  }
+  //will find given book
+  function isBook(book){
+    return book.title==='JavaScript: The Definitive Guide';
+
+  }
+  loopThroughAndFind(books1, isBook)
+  //will find the first book that needs to be restocked
+  function stockFirst(item){
+    return item.inventory<3;
+  }
+  let foundItem = books1.find(stockFirst);
+    console.log(foundItem);
+  //reduce method
+*/
+
+const reducer = (accumulator, item)=>{
+    console.log(accumulator,item)
+let total = item.price* item.inventory;
+return accumulator+=total;
+}
+let total =books1.reduce(reducer,0);
+
+//foreach
+/*function loopThrough(inventory, foo){
+    for(let item of inventory){
+        foo(item);
+    }
+}*/
+//for each
+books1.forEach(function(item){
+    console.log(item.title.toLocaleUpperCase())
+})
+/*function logTitle(item){
+    console.log(item.title.toUpperCase());
+}
+loopThrough(books1,logTitle);*/
+books1.forEach(function(item){
+    console.log(item.title.toLowerCase());
+})
