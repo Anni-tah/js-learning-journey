@@ -52,3 +52,32 @@ function printFirstName(collection,color){
 }
 } 
 printFirstName(users, 'yellow');
+
+//find elements using a simple condition with array.prototype.indexof()
+const cards = ['queen of hearts', 'jack of clubs', 'ten of diamonds', 'ace of spades'];
+cards.indexOf('jack of clubs')
+
+//Filtering arrays
+/*function filter(collection){
+  for(const user of collection){
+    if(likesElephants(user)){
+      console.log(user.firstName)
+
+    }
+  }
+}
+function likesElephants(user){
+  return user['favoriteAnimal']==='Elephant';
+}
+filter(users);*/
+
+function filter(collection,cb){
+  for (const user of collection){
+    if(cb(user)){
+      console.log(user.firstName);
+    }
+  }
+}
+filter(users,function(user){
+  return user.favoriteColor ==='Blue' && user.favoriteAnimal ==='Penguin';
+});
